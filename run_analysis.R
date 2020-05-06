@@ -1,4 +1,4 @@
-
+#Final project for Getting and Cleaning Data from Johns Hopkins on Coursera
 
 
 #Libraries for function
@@ -6,6 +6,10 @@
 library(dplyr)
 library(tidyr)
 library(utils)
+
+#Function that downloads relevant data, compiles it, makes it readable, and
+#writes it to a file that is saved in the downloaded and unzipped folder. It
+#then explains to the user what was done.
 
 run_analysis <- function(){
     
