@@ -13,10 +13,9 @@ run_analysis <- function(){
     
     download_data()
     
-    #Create merged data frame with complete_data() and make variables readable
+    #Create merged data frame with complete_data()
     
     combined <- complete_data()
-    colnames(combined) <- combined %>% names %>% descriptive_variables
     
     #Create new condensed table with just averages for activities and subjects
     
@@ -81,15 +80,16 @@ complete_data <- function(){
     raw_activity <- rbind(test.y, train.y)
     raw_subjects <- rbind(test.s, train.s)
     
-    #Trim and rename columns in merged
+    #Trim and rename columns in merged, then make column names readable
     
     raw_all <- raw_all[, f.index]
     colnames(raw_all) <- features$V2[f.index]
+    colnames(raw_all) <- raw_all %>% names %>% descriptive_variables
     
     #Clean subjects
     
     colnames(raw_subjects) <- 'subject'
-    raw_subjects <- as.factor(raw_subjects)
+    raw_subjects$subject <- as.factor(raw_subjects$subject)
     
     #Rename activity factors with descriptor rather than number
     
