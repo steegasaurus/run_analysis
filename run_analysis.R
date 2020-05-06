@@ -122,8 +122,8 @@ descriptive_variables <- function(n){
         gsub('-Z', 'z dir', .) %>%
         gsub('Body', 'body ', .) %>%
         gsub('Gravity', 'gravity ', .) %>%
-        gsub('Acc', 'acceleration ', .) %>%
-        gsub('Gyro', 'gyro ', .) %>%
+        gsub('Acc', 'accelerometer ', .) %>%
+        gsub('Gyro', 'gyroscope ', .) %>%
         gsub('Jerk', 'jerk ', .) %>%
         gsub('Mag', 'magnitude ', .)
     vars
