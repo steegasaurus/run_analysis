@@ -46,6 +46,7 @@ complete_data <- function(){
     
     #Merge test and train data from raw
     raw_all <- rbind(test.X, train.X)
+    raw_activity <- rbind(test.y, train.y)
     
     #Trim and rename columns in merged
     raw_all <- raw_all[, f.index]
