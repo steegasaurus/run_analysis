@@ -41,7 +41,7 @@ complete_data <- function(){
     features <- read.table('UCI HAR Dataset/features.txt')
     f.index <- grep('[Mm]ean\\(|std\\(', features$V2)
     
-    #Extract activity info
+    #Extract activity info and make descriptions more readable
     activity <- read.table('UCI HAR Dataset/activity_labels.txt')
     activity$V2 <- activity$V2 %>% tolower() %>% sub('_', ' ', .)
     
