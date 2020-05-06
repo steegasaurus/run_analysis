@@ -5,6 +5,7 @@
 
 library(dplyr)
 library(tidyr)
+library(utils)
 
 run_analysis <- function(){
     
@@ -15,7 +16,17 @@ run_analysis <- function(){
     #Create merged data frame with complete_data() and make variables readable
     
     combined <- complete_data()
-    names(combined) <- combined %>% names %>% descriptive_variables
+    colnames(combined) <- combined %>% names %>% descriptive_variables
+    
+    #Create new condensed table with just averages for activities and subjects
+    
+    #Save tables as .csv files
+    
+    #Print what was done to the console
+    print('Relevant files downloaded, new files all_data.csv and condensed.csv
+          created in folder UCI HAR Dataset. all_data.csv is a cleaned up
+          file of all observations and condensed.csv is a table of the averages
+          of each variable for each activity and each subject.')
 }
 
 #Function downloading and unzipping the data from UCI smartphone activity
@@ -43,11 +54,13 @@ complete_data <- function(){
     
     test.X <- read.table('UCI HAR Dataset/test/X_test.txt')
     test.y <- read.table('UCI HAR Dataset/test/y_test.txt')
+    test.s <- read.table('UCI HAR Dataset/test/subject_test.txt')
     
     #Extract train data from raw and activity file
     
     train.X <- read.table('UCI HAR Dataset/train/X_train.txt')
     train.y <- read.table('UCI HAR Dataset/train/y_train.txt')
+    train.s <- read.table('UCI HAR Dataset/train/subject_train.txt')
     
     #Extract features info and record the indices of the mean and standard dev
     
@@ -57,42 +70,49 @@ complete_data <- function(){
     #Extract activity info and make descriptions more readable
     
     activity <- read.table('UCI HAR Dataset/activity_labels.txt')
-    activity$V2 <- activity$V2 %>% tolower() %>% sub('_', ' ', .)
+    activity$V2 <- activity$V2 %>% tolower %>% sub('_', ' ', .)
     
     #Merge test and train data from raw
     
     raw_all <- rbind(test.X, train.X)
     raw_activity <- rbind(test.y, train.y)
+    raw_subjects <- rbind(test.s, train.s)
     
     #Trim and rename columns in merged
     
     raw_all <- raw_all[, f.index]
     colnames(raw_all) <- features$V2
     
+    #Clean subjects
+    
+    colnames(raw_subjects) <- 'subject'
+    raw_subjects <- as.factor(raw_subjects)
+    
     #Rename activity factors with descriptor rather than number
     
     raw_activity$V1 <- as.factor(raw_activity$V1)
     levels(raw_activity$V1) <- activity$V2
+    colnames(raw_activity) <- 'activity'
     
-    #Merge raw and activity file
+    #Merge raw, activity, subject files
     
-    combined <- cbind(raw_activity, raw_all)
+    combined <- cbind(raw_subjects, raw_activity, raw_all)
     
     #Return the combined data frame
     
     combined
 }
 
-#Makes column names more readable
+#Makes column names more readable with a series of character variable subs
 
 descriptive_variables <- function(n){
     vars <- n %>% gsub('^t', 'raw ', .) %>%
         gsub('^f', 'ffs ', .) %>%
-        gsub('-mean\\(\\)', ' mean', .) %>%
-        gsub('-std\\(\\)', ' standard dev', .) %>%
-        gsub('-X', ' x dir', .) %>%
-        gsub('-Y', ' y dir', .) %>%
-        gsub('-Z', ' z dir', .) %>%
+        gsub('-mean\\(\\)', 'mean ', .) %>%
+        gsub('-std\\(\\)', 'standard dev ', .) %>%
+        gsub('-X', 'x dir', .) %>%
+        gsub('-Y', 'y dir', .) %>%
+        gsub('-Z', 'z dir', .) %>%
         gsub('Body', 'body ', .) %>%
         gsub('Gravity', 'gravity ', .) %>%
         gsub('Acc', 'acceleration ', .) %>%
