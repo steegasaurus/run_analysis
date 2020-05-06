@@ -59,4 +59,5 @@ complete_data <- function(){
     combined <- cbind(raw_activity, raw_all)
     
     #Return the combined data frame
+    combined
 }
