@@ -84,7 +84,7 @@ complete_data <- function(){
     #Trim and rename columns in merged
     
     raw_all <- raw_all[, f.index]
-    colnames(raw_all) <- features$V2
+    colnames(raw_all) <- features$V2[f.index]
     
     #Clean subjects
     
