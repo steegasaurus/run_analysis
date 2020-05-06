@@ -55,6 +55,7 @@ complete_data <- function(){
     #Rename activity factors with descriptor rather than number
     
     #Merge raw and activity file
+    combined <- cbind(raw_activity, raw_all)
     
     #Return the combined data frame
 }
