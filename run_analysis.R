@@ -23,7 +23,8 @@ run_analysis <- function(){
     condensed <- condense_data(combined)
     
     #Save tables as .txt files
-    
+    write.table(combined, 'all_data.txt', row.names = FALSE)
+    write.table(condensed, 'condensed.txt')
     
     #Print what was done to the console
     print('Relevant files downloaded, new files all_data.txt and condensed.txt
@@ -39,8 +40,7 @@ download_data <- function(){
     
     #Download the zip file to the working directory
     
-    download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles
-                  %2FUCI%20HAR%20Dataset.zip', 'uci_sp_data.zip')
+    download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip', 'uci_sp_data.zip')
     #Unzip it
     
     unzip('uci_sp_data.zip')
@@ -132,5 +132,5 @@ condense_data <- function(data){
     g <- group_by(data, subject, activity)
     
     #Create summary table and return it
-    summarize()
+    summarize_all(g, mean)
 }
