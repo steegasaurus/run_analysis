@@ -20,12 +20,15 @@ run_analysis <- function(){
     
     #Create new condensed table with just averages for activities and subjects
     
-    #Save tables as .csv files
+    condensed <- condense_data(combined)
+    
+    #Save tables as .txt files
+    
     
     #Print what was done to the console
-    print('Relevant files downloaded, new files all_data.csv and condensed.csv
-          created in folder UCI HAR Dataset. all_data.csv is a cleaned up
-          file of all observations and condensed.csv is a table of the averages
+    print('Relevant files downloaded, new files all_data.txt and condensed.txt
+          created in folder UCI HAR Dataset. all_data.txt is a cleaned up
+          file of all observations and condensed.txt is a table of the averages
           of each variable for each activity and each subject.')
 }
 
@@ -120,4 +123,14 @@ descriptive_variables <- function(n){
         gsub('Jerk', 'jerk ', .) %>%
         gsub('Mag', 'magnitude ', .)
     vars
+}
+
+#Create a condensed table from the raw data
+condense_data <- function(data){
+    
+    #Group the data
+    g <- group_by(data, subject, activity)
+    
+    #Create summary table and return it
+    summarize()
 }
