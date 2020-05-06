@@ -26,9 +26,9 @@ run_analysis <- function(){
     write.table(condensed, 'UCI HAR Dataset/condensed.txt')
     
     #Print what was done to the console
-    print('Relevant files downloaded, new files all_data.txt and condensed.txt
-          created in folder UCI HAR Dataset. all_data.txt is a cleaned up
-          file of all observations and condensed.txt is a table of the averages
+    writeLines('Relevant files downloaded, new files all_data.txt and condensed.txt\n
+          created in folder UCI HAR Dataset. all_data.txt is a cleaned up\n
+          file of all observations and condensed.txt is a table of the averages\n
           of each variable for each activity and each subject.')
 }
 
@@ -103,7 +103,7 @@ complete_data <- function(){
     
     #Return the combined data frame
     
-    combined
+    arrange(combined, subject, activity)
 }
 
 #Makes column names more readable with a series of character variable subs
