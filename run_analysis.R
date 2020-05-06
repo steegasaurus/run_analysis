@@ -43,6 +43,7 @@ complete_data <- function(){
     
     #Extract activity info
     activity <- read.table('UCI HAR Dataset/activity_labels.txt')
+    activity$V2 <- activity$V2 %>% tolower() %>% sub('_', ' ', .)
     
     #Merge test and train data from raw
     raw_all <- rbind(test.X, train.X)
