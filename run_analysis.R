@@ -22,8 +22,8 @@ run_analysis <- function(){
     condensed <- condense_data(combined)
     
     #Save tables as .txt files
-    write.table(combined, 'all_data.txt', row.names = FALSE)
-    write.table(condensed, 'condensed.txt')
+    write.table(combined, 'UCI HAR Dataset/all_data.txt')
+    write.table(condensed, 'UCI HAR Dataset/condensed.txt')
     
     #Print what was done to the console
     print('Relevant files downloaded, new files all_data.txt and condensed.txt
